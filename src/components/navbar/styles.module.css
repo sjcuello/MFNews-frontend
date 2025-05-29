@@ -1,0 +1,37 @@
+.headerContainer {
+  display: flex;
+}
+
+.appBar {
+  height: 4rem;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.iconContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2rem;
+}
+
+.icon {
+  margin-right: 8px;
+  display: none;
+}
+
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.05rem;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.navButton {
+  color: #fff;
+}
