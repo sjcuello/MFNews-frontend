@@ -1,40 +1,40 @@
-import { Card, ItemForm } from "../interfaces";
+import { Article, ArticleForm } from "../interfaces";
 
-const BASE_URL = process.env.BASE_URL + '/item';
+const BASE_URL = process.env.BASE_URL + '/article';
 
-export const getItems = async () => {
+export const getArticles = async () => {
   const response = await fetch(`${BASE_URL}`);
   if (!response.ok) {
-    throw new Error('Failed to fetch items');
+    throw new Error('Failed to fetch articles');
   }
   return response.json();
 };
 
-export const createItem = async (itemData: ItemForm) => {
+export const createArticle = async (articleData: ArticleForm) => {
   const response = await fetch(`${BASE_URL}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(itemData),
+    body: JSON.stringify(articleData),
   });
   if (!response.ok) {
-    throw new Error('Failed to create item');
+    throw new Error('Failed to create the article');
   }
   return response.json();
 };
 
-export const deleteItem = async (itemId: number) => {
-  const response = await fetch(`${BASE_URL}/${itemId}`, {
+export const deleteArticle = async (articleId: number) => {
+  const response = await fetch(`${BASE_URL}/${articleId}`, {
     method: 'DELETE',
   });
   if (!response.ok) {
-    throw new Error('Failed to delete item');
+    throw new Error('Failed to delete article');
   }
   return response.json();
 };
 
-export const updateItem = async (updateData: Card) => {
+export const updateArticle = async (updateData: Article) => {
   const response = await fetch(`${BASE_URL}/${updateData.id}`, {
     method: 'PATCH',
     headers: {
@@ -43,7 +43,7 @@ export const updateItem = async (updateData: Card) => {
     body: JSON.stringify(updateData),
   });
   if (!response.ok) {
-    throw new Error('Failed to update item');
+    throw new Error('Failed to update article');
   }
   return response.json();
 };

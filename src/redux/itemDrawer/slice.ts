@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ItemForm } from '../../interfaces';
+import { ArticleForm } from '../../interfaces';
 
-const initialState: ItemForm = {
-  name: '',
+const initialState: ArticleForm = {
+  title: '',
+  subtitle: '',
   description: '',
-  amount: 0
+  imageUrl: '',
+  author: '',
 }
 
 export const itemDrawerSlice = createSlice({
@@ -12,35 +14,51 @@ export const itemDrawerSlice = createSlice({
   initialState,
   reducers: {
     setItemDrawer: (state, action) => {
-      state.name = action.payload.name;
+      state.title = action.payload.title;
+      state.subtitle = action.payload.subtitle;
       state.description = action.payload.description;
-      state.amount = action.payload.amount
+      state.imageUrl = action.payload.imageUrl;
+      state.author = action.payload.author;
     },
-    setName: (state, action) => {
-      state.name = action.payload;
+    setTitle: (state, action) => {
+      state.title = action.payload;
+    },
+    setSubtitle: (state, action) => {
+      state.subtitle = action.payload;
     },
     setDescription: (state, action) => {
       state.description = action.payload;
     },
-    setAmount: (state, action) => {
-      state.amount = action.payload;
+    setImageUrl: (state, action) => {
+      state.imageUrl = action.payload;
+    },
+    setAuthor: (state, action) => {
+      state.author = action.payload;
     },
     setClear: () => initialState,
   },
 });
 
 export const {
-  setName,
-  setDescription,
-  setAmount,
   setItemDrawer,
+  setTitle,
+  setSubtitle,
+  setDescription,
+  setImageUrl,
+  setAuthor,
   setClear
 } = itemDrawerSlice.actions;
 
-export const selectItemDrawer = (state: { itemDrawer: ItemForm; }) => state.itemDrawer;
-export const isItemDrawerEmpty = (state: { itemDrawer: ItemForm; }) => {
-  const { name, description, amount } = state.itemDrawer;
-  return !name && !description && !amount;
+export const selectItemDrawer = (state: { itemDrawer: ArticleForm; }) => state.itemDrawer;
+export const isItemDrawerEmpty = (state: { itemDrawer: ArticleForm; }) => {
+  const { 
+    author,
+    description,
+    imageUrl,
+    subtitle,
+    title   
+   } = state.itemDrawer;
+  return !author && !description && !imageUrl && !subtitle && !title;
 }
 
 

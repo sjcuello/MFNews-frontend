@@ -9,8 +9,8 @@ const initialState: ItemsState = {
   error: null
 }
 
-export const itemsSlice = createSlice({
-  name: 'items',
+export const articleSlice = createSlice({
+  name: 'article',
   initialState,
   reducers: {
     setItemList: (state, action) => {
@@ -22,32 +22,32 @@ export const itemsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(thunk.fetchAllItems.pending, (state) => {
+      .addCase(thunk.fetchAllArticles.pending, (state) => {
         state.status = 'pending';
       })
-      .addCase(thunk.fetchAllItems.fulfilled, (state, action) => {
+      .addCase(thunk.fetchAllArticles.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.data = action.payload;
       })
-      .addCase(thunk.fetchAllItems.rejected, (state, action) => {
+      .addCase(thunk.fetchAllArticles.rejected, (state, action) => {
         state.status = 'rejected';
         state.error = action.error.message || 'Failed to fetch data';
       })
-      .addCase(thunk.addItem.pending, (state) => {
+      .addCase(thunk.addArticle.pending, (state) => {
         state.status = 'pending';
       })
-      .addCase(thunk.addItem.fulfilled, (state, action) => {
+      .addCase(thunk.addArticle.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.data.push(action.payload);
       })
-      .addCase(thunk.addItem.rejected, (state, action) => {
+      .addCase(thunk.addArticle.rejected, (state, action) => {
         state.status = 'rejected';
         state.data = state.data.filter((item) => item.id !== (action.payload as { id: number }).id);
       })
-      .addCase(thunk.editItem.pending, (state) => {
+      .addCase(thunk.editArticle.pending, (state) => {
         state.status = 'pending';
       })
-      .addCase(thunk.editItem.fulfilled, (state, action) => {
+      .addCase(thunk.editArticle.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.data = state.data.map((item) => {
           if (item.id === action.payload.id) {
@@ -56,18 +56,18 @@ export const itemsSlice = createSlice({
           return item;
         });
       })
-      .addCase(thunk.editItem.rejected, (state, action) => {
+      .addCase(thunk.editArticle.rejected, (state, action) => {
         state.status = 'rejected';
         state.error = action.error.message || 'Failed to edit item';
       })
-      .addCase(thunk.removeItem.pending, (state) => {
+      .addCase(thunk.removeArticle.pending, (state) => {
         state.status = 'pending';
       })
-      .addCase(thunk.removeItem.fulfilled, (state, action) => {
+      .addCase(thunk.removeArticle.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.data = state.data.filter((item) => item.id !== action.payload);
       })
-      .addCase(thunk.removeItem.rejected, (state, action) => {
+      .addCase(thunk.removeArticle.rejected, (state, action) => {
         state.status = 'rejected';
         state.error = action.error.message || 'Failed to remove item';
       })
@@ -77,12 +77,12 @@ export const itemsSlice = createSlice({
 export const {
   setItemList,
   deleteItemList
-} = itemsSlice.actions;
+} = articleSlice.actions;
 
-export const selectItemList = (state: RootState) => state.items;
-export const selectItemById = (state: RootState, id: number) => state.items.data.find((item) => item.id === id);
-export const selectAllNames = (state: RootState) => state.items.data.map((item) => item.name);
+export const selectArticleList = (state: RootState) => state.articles.data;
+export const selectArticleById = (state: RootState, id: number) => state.articles.data.find((item) => item.id === id);
+export const selectAllTitles = (state: RootState) => state.articles.data.map((article) => article.title);
 
 
 
-export default itemsSlice.reducer;
+export default articleSlice.reducer;

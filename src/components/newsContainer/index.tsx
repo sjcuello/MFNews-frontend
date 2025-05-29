@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import CardItem from '../cardItem';
 import styles from './styles.module.css';
 import { selectItemList } from '../../redux/articles';
@@ -6,14 +6,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchAllItems } from '../../redux/articles/thunk';
 import Loading from '../loading';
+import { switchDrawer } from '../../redux/drawer';
 import ListEmpty from '../listEmpty';
-import { useNavigate } from 'react-router-dom';
 
-const TrashBin = () => {
+const NewsContainer = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const dispatch = useDispatch<any>();
   const { data, status } = useSelector(selectItemList);
-  const navigate = useNavigate();
+
+  const handleDrawerToggle = () => {
+    dispatch(switchDrawer());
+  };
 
   useEffect(() => {
     if (status === 'idle') {
@@ -24,14 +27,20 @@ const TrashBin = () => {
   return (
     <Box className={styles.container}>
       {
-        data.length > 0 && data.some(item => item.markAsDeleted) ? (<>
+        status === 'succeeded' && data.length > 0 && data.some(item => !item.markAsDeleted) ? (<>
           <Box className={styles.titleContainer}>
-            <Typography variant='h2'>Trash Bin</Typography>
+            <Typography variant='h2'>Your Items</Typography>
+            <Button
+              variant="contained"
+              color='primary'
+              className={styles.button}
+              onClick={handleDrawerToggle}
+            >Add Item</Button>
           </Box>
           <Box className={styles.cardContainer}>
             {data.map((item, index) => {
-              if (item.markAsDeleted) {
-                return <CardItem key={index} data={item} isInTrashBin />;
+              if (!item.markAsDeleted) {
+                return <CardItem key={index} data={item} />;
               }
             })}
           </Box>
@@ -39,13 +48,13 @@ const TrashBin = () => {
         ) : status === 'pending' ? (
           <Loading />
         ) : <ListEmpty
-          text="Your trash bin is empty :)"
-          textButton="Back to Home"
-          handleClick={() => navigate('/')}
+          text="Your feed list is empty :("
+          textButton="Add your first item"
+          handleClick={handleDrawerToggle}
         />
       }
     </Box>
   )
 }
 
-export default TrashBin;
+export default NewsContainer;

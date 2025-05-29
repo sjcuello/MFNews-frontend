@@ -1,14 +1,14 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import itemsReducer from './items';
+import articlesReducer from './articles';
 import itemDrawerReducer from './itemDrawer';
 import drawerReducer from './drawer';
-import itemSelectedReducer from './itemSelected';
+import articleSelectedReducer from './articleSelected';
 
 const rootReducer = combineReducers({
-  items: itemsReducer,
+  articles: articlesReducer,
   itemDrawer: itemDrawerReducer,
   drawer: drawerReducer,
-  itemSelected: itemSelectedReducer,
+  articleSelected: articleSelectedReducer,
 });
 
 const store = configureStore({

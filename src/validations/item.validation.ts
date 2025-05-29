@@ -1,18 +1,25 @@
 import * as yup from 'yup';
 
-export const itemValidationSchema = (excludedNames: string[]) =>
+export const articleValidationSchema = (excludedNames: string[]) =>
   yup.object({
-    name: yup
+    title: yup
       .string()
-      .required('Name is required')
+      .required('Title is required')
+      .notOneOf(excludedNames, ({ value }) => `${value} is not allowed`),
+    subTitle: yup
+      .string()
+      .required('SubTitle is required')
       .notOneOf(excludedNames, ({ value }) => `${value} is not allowed`),
     description: yup
       .string()
       .max(100, 'Description is too long. Max 100 characters'),
-    amount: yup
-      .number()
-      .moreThan(0, 'Number of elements must be greater than 0')
-      .required('Number of elements is required'),
-    date: yup
-      .date()
+    imageUrl: yup
+      .string()
+      .url('Image URL must be a valid URL')
+      .required('Image URL is required')
+      .notOneOf(excludedNames, ({ value }) => `${value} is not allowed`),
+    author: yup
+      .string()
+      .required('Author is required')
+      .notOneOf(excludedNames, ({ value }) => `${value} is not allowed`),
   });

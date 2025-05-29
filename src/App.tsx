@@ -1,4 +1,3 @@
-import CardsContainer from './components/cardsContainer'
 import ErrorPage from './components/errorPage';
 import Layout from './components/layout'
 import Navbar from './components/navbar'
@@ -8,6 +7,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import TrashBin from './components/trashBin';
+import NewsContainer from './components/newsContainer';
 
 const RootLayout = () => {
   return (
@@ -25,7 +25,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <CardsContainer />,
+        element: <NewsContainer />,
       },
       {
         path: '/trash-bin',
