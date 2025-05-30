@@ -1,10 +1,10 @@
 import { Box, Button, Typography } from '@mui/material';
 import CardItem from '../cardItem';
 import styles from './styles.module.css';
-import { selectItemList } from '../../redux/articles';
+import { selectArticleList } from '../../redux/articles';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { fetchAllItems } from '../../redux/articles/thunk';
+import { fetchAllArticles } from '../../redux/articles/thunk';
 import Loading from '../loading';
 import { switchDrawer } from '../../redux/drawer';
 import ListEmpty from '../listEmpty';
@@ -12,7 +12,7 @@ import ListEmpty from '../listEmpty';
 const NewsContainer = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const dispatch = useDispatch<any>();
-  const { data, status } = useSelector(selectItemList);
+  const { data, status } = useSelector(selectArticleList);
 
   const handleDrawerToggle = () => {
     dispatch(switchDrawer());
@@ -20,7 +20,7 @@ const NewsContainer = () => {
 
   useEffect(() => {
     if (status === 'idle') {
-      dispatch(fetchAllItems());
+      dispatch(fetchAllArticles());
     }
   }, [status, dispatch]);
 
@@ -29,13 +29,13 @@ const NewsContainer = () => {
       {
         status === 'succeeded' && data.length > 0 && data.some(item => !item.markAsDeleted) ? (<>
           <Box className={styles.titleContainer}>
-            <Typography variant='h2'>Your Items</Typography>
+            <Typography variant='h2'>Your Articles</Typography>
             <Button
               variant="contained"
               color='primary'
               className={styles.button}
               onClick={handleDrawerToggle}
-            >Add Item</Button>
+            >Add article</Button>
           </Box>
           <Box className={styles.cardContainer}>
             {data.map((item, index) => {
@@ -49,7 +49,7 @@ const NewsContainer = () => {
           <Loading />
         ) : <ListEmpty
           text="Your feed list is empty :("
-          textButton="Add your first item"
+          textButton="Add your first article"
           handleClick={handleDrawerToggle}
         />
       }

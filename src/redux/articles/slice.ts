@@ -79,7 +79,7 @@ export const {
   deleteItemList
 } = articleSlice.actions;
 
-export const selectArticleList = (state: RootState) => state.articles.data;
+export const selectArticleList = (state: RootState) => state.articles;
 export const selectArticleById = (state: RootState, id: number) => state.articles.data.find((item) => item.id === id);
 export const selectAllTitles = (state: RootState) => state.articles.data.map((article) => article.title);
 

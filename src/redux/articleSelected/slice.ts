@@ -9,6 +9,7 @@ const initialState: Article = {
   imageUrl: '',
   author: '',
   markAsDeleted: false,
+  isChecked: false
 }
 
 export const articleSelectedSlice = createSlice({
@@ -23,6 +24,7 @@ export const articleSelectedSlice = createSlice({
       state.imageUrl = action.payload.imageUrl;
       state.author = action.payload.author;
       state.markAsDeleted = action.payload.markAsDeleted;
+      state.isChecked = action.payload.isChecked;
     },
     setClear: () => initialState,
   },
