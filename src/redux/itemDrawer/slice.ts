@@ -7,6 +7,8 @@ const initialState: ArticleForm = {
   description: '',
   imageUrl: '',
   author: '',
+  category: '',
+  content: ''
 }
 
 export const itemDrawerSlice = createSlice({
@@ -19,6 +21,8 @@ export const itemDrawerSlice = createSlice({
       state.description = action.payload.description;
       state.imageUrl = action.payload.imageUrl;
       state.author = action.payload.author;
+      state.category = action.payload.category;
+      state.content = action.payload.content;
     },
     setTitle: (state, action) => {
       state.title = action.payload;
@@ -34,6 +38,12 @@ export const itemDrawerSlice = createSlice({
     },
     setAuthor: (state, action) => {
       state.author = action.payload;
+    },
+    setCategory: (state, action) => {
+      state.category = action.payload;
+    },
+    setContent: (state, action) => {
+      state.content = action.payload;
     },
     setClear: () => initialState,
   },
