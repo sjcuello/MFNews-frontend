@@ -5,6 +5,24 @@ const dosisFont = {
 };
 
 const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#c82c2c',
+      contrastText: '#ffffff',
+    },
+    secondary: {
+      main: '#dc004e',
+      contrastText: '#ffffff',
+    },
+    background: {
+      default: '#f5f5f5',
+      paper: '#ffffff',
+    },
+    text: {
+      primary: '#212121',
+      secondary: '#757575',
+    },
+  },
   typography: {
     fontFamily: "'Roboto', sans-serif",
     h1: { ...dosisFont, fontSize: '3rem' },
