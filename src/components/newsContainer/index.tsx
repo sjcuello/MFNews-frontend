@@ -9,6 +9,7 @@ import Loading from '../loading';
 import { switchDrawer } from '../../redux/drawer';
 import ListEmpty from '../listEmpty';
 import { Article } from '../../interfaces';
+import Carousel from '../carousel';
 
 const NewsContainer = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -30,6 +31,7 @@ const NewsContainer = () => {
       {
         status === 'succeeded' && data.length > 0 && data.some(item => !item.markAsDeleted) ? (<>
           <NewsContent articles={data} />
+          <Carousel articles={data} />
         </>
         ) : status === 'pending' ? (
           <Loading />
@@ -86,7 +88,7 @@ const SideArticle = ({ title, imageUrl}: Article) => {
   );
 }
 
-const ImageContainer = ({ imageUrl, title }: { imageUrl: string; title: string }) => {
+export const ImageContainer = ({ imageUrl, title }: { imageUrl: string; title: string }) => {
   return (
     <Box
       sx={{
