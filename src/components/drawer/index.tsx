@@ -35,6 +35,8 @@ const Drawer = () => {
     description: '',
     imageUrl: '',
     author: '',
+    content: '',
+    category: ''
   } : itemDrawer;
 
   const formik = useFormik({
@@ -98,9 +100,6 @@ const Drawer = () => {
             <Typography variant="body1" fontWeight="500" className={styles.drawerTitle}>
               {isNewItem ? 'Add a new article' : 'Edit existing article'}
             </Typography>
-            <Typography variant="body2" fontWeight="400" className={styles.drawerTitle}>
-              {`Fill the form below to ${isNewItem? 'add a new article' : 'edit an existing one'}`}
-            </Typography>
             <form onSubmit={formik.handleSubmit} onReset={formik.handleReset} className={styles.form}>
               <Box className={styles.formInputs}>
                 <TextField
@@ -147,11 +146,43 @@ const Drawer = () => {
                   error={formik.touched.subtitle && Boolean(formik.errors.subtitle)}
                   helperText={formik.touched.subtitle && formik.errors.subtitle}
                 />
+                <TextField
+                  fullWidth
+                  id="category"
+                  name="category"
+                  label="Category"
+                  value={formik.values.category}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  error={formik.touched.category && Boolean(formik.errors.category)}
+                  helperText={formik.touched.category && formik.errors.category}
+                />
+                <CssVarsProvider>
+                  <Textarea
+                    id="content"
+                    name="content"
+                    minRows={1}
+                    size="lg"
+                    variant="outlined"
+                    value={formik.values.content}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.content && Boolean(formik.errors.content)}
+                    placeholder="Short content description"
+                    endDecorator={
+                      <Box className={styles.charCounter}>
+                        <p>
+                          {formik.values.content.length} / 30
+                        </p>
+                      </Box>
+                    }
+                  />
+                </CssVarsProvider>
                 <CssVarsProvider>
                   <Textarea
                     id="description"
                     name="description"
-                    minRows={4}
+                    minRows={3}
                     size="lg"
                     variant="outlined"
                     value={formik.values.description}
@@ -162,7 +193,7 @@ const Drawer = () => {
                     endDecorator={
                       <Box className={styles.charCounter}>
                         <p>
-                          {formik.values.description.length} /100
+                          {formik.values.description.length} / 100
                         </p>
                       </Box>
                     }

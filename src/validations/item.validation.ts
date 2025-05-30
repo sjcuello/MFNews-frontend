@@ -29,5 +29,6 @@ export const articleValidationSchema = (excludedNames: string[]) =>
     content: yup
       .string()
       .required('Content is required')
-      .notOneOf(excludedNames, ({ value }) => `${value} is not allowed`),
+      .notOneOf(excludedNames, ({ value }) => `${value} is not allowed`)
+      .max(30, 'Content is too long. Max 30 characters'),
   });
