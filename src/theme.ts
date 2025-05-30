@@ -7,7 +7,7 @@ const dosisFont = {
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#c82c2c',
+      main: '#ff2424',
       contrastText: '#ffffff',
     },
     secondary: {

@@ -1,6 +1,12 @@
 import { Box } from "@mui/material";
 
-const ImageContainer = ({ imageUrl, title }: { imageUrl: string; title: string }) => {
+interface ImageContainerProps {
+  imageUrl: string;
+  title: string;
+  horizontalMargin?: number;
+}
+
+const ImageContainer = ({ imageUrl, title, horizontalMargin = 2 }: ImageContainerProps) => {
   return (
     <Box
       sx={{
@@ -10,8 +16,7 @@ const ImageContainer = ({ imageUrl, title }: { imageUrl: string; title: string }
         justifyContent: 'center',
         alignItems: 'center',
         overflow: 'hidden',
-        marginBottom: 2,
-        marginTop: 2
+        my: horizontalMargin
       }}
     >
       <Box

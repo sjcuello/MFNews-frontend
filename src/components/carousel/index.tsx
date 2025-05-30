@@ -50,18 +50,15 @@ const Carousel = ({
           <Box className={styles.carouselContent}>
             {visibleArticles.map((article, index) => (
               <Box key={index} className={styles.carouselItem}>
-                <ImageContainer imageUrl={article.imageUrl} title={article.title} />
-                <Typography variant="h3" className={styles.carouselCategory}>
-                  {/* {article.category || "Uncategorized"} */}
-                  category
+                <ImageContainer imageUrl={article.imageUrl} title={article.title} horizontalMargin={0}/>
+                <Box padding={2}>
+                  <Typography variant="h5" className={styles.carouselCategory} fontWeight={800}>
+                  {article.category}
                 </Typography>
-                <Typography variant="h2" className={styles.carouselItemTitle}>
+                <Typography variant="h4" marginTop={1} fontWeight={600}>
                   {article.title}
                 </Typography>
-                <Typography variant="body1" className={styles.carouselItemDescription}>
-                  {article.description?.substring(0, 150)}
-                  {article.description?.length > 150 ? '...' : ''}
-                </Typography>
+                </Box>
               </Box>
             ))}
           </Box>
