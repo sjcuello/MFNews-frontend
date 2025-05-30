@@ -5,11 +5,13 @@ import MainArticle from '../mainArticle';
 import SideArticle from '../sideArticle';
 
 const NewsContainer = ({ articles }: { articles: Article[] }) => {
+  const mainArticle = articles[0];
+  const sideArticles = articles.slice(1, 4);
   return (
     <Box className={styles.content}>
-      <MainArticle article={articles[0]}/>
+      <MainArticle article={mainArticle}/>
       <Box className={styles.sideArticles}>
-        {articles.slice(1, 4).map((article) => (
+        {sideArticles.map((article) => (
           <SideArticle key={article.id} {...article} />
         ))}
       </Box>

@@ -31,7 +31,7 @@ const News = () => {
       {
         status === 'succeeded' && data.length > 0 && data.some(item => !item.markAsDeleted) ? (<>
           <NewsContainer articles={data} />
-          <Carousel articles={data} />
+          <Carousel articles={data.slice(-6)} />
         </>
         ) : status === 'pending' ? (
           <Loading />
