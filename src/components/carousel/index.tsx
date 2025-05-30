@@ -37,50 +37,50 @@ const Carousel = ({
   }
 
   return (
-      <Box className={styles.carouselContainer}>
-        <Box className={styles.carousel}>
-          <IconButton
-            onClick={handlePrev}
-            className={styles.carouselArrow}
-            aria-label="Previous article"
-          >
-            <ArrowBackIos />
-          </IconButton>
+    <Box className={styles.carouselContainer}>
+      <Box className={styles.carousel}>
+        <IconButton
+          onClick={handlePrev}
+          className={styles.carouselArrow}
+          aria-label="Previous article"
+        >
+          <ArrowBackIos />
+        </IconButton>
 
-          <Box className={styles.carouselContent}>
-            {visibleArticles.map((article, index) => (
-              <Box key={index} className={styles.carouselItem}>
-                <ImageContainer imageUrl={article.imageUrl} title={article.title} horizontalMargin={0}/>
-                <Box padding={2}>
-                  <Typography variant="h5" className={styles.carouselCategory} fontWeight={800}>
+        <Box className={styles.carouselContent}>
+          {visibleArticles.map((article, index) => (
+            <Box key={index} className={styles.carouselItem}>
+              <ImageContainer imageUrl={article.imageUrl} title={article.title} />
+              <Box padding={2}>
+                <Typography variant="h5" className={styles.carouselCategory} fontWeight={800}>
                   {article.category}
                 </Typography>
                 <Typography variant="h4" marginTop={1} fontWeight={600}>
                   {article.title}
                 </Typography>
-                </Box>
               </Box>
-            ))}
-          </Box>
-          <IconButton
-            onClick={handleNext}
-            className={styles.carouselArrow}
-            aria-label="Next article"
-          >
-            <ArrowForwardIos />
-          </IconButton>
-        </Box>
-
-        <Box className={styles.carouselIndicators}>
-          {filteredArticles.map((_, index) => (
-            <Box
-              key={index}
-              className={`${styles.indicator} ${index === currentIndex ? styles.activeIndicator : ''}`}
-              onClick={() => setCurrentIndex(index)}
-            />
+            </Box>
           ))}
         </Box>
+        <IconButton
+          onClick={handleNext}
+          className={styles.carouselArrow}
+          aria-label="Next article"
+        >
+          <ArrowForwardIos />
+        </IconButton>
       </Box>
+
+      <Box className={styles.carouselIndicators}>
+        {filteredArticles.map((_, index) => (
+          <Box
+            key={index}
+            className={`${styles.indicator} ${index === currentIndex ? styles.activeIndicator : ''}`}
+            onClick={() => setCurrentIndex(index)}
+          />
+        ))}
+      </Box>
+    </Box>
   );
 };
 
