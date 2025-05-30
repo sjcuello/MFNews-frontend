@@ -3,7 +3,7 @@ import { Article } from "../../interfaces";
 import { Box, IconButton, Typography } from "@mui/material";
 import styles from "./styles.module.css";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
-import { ImageContainer } from "../newsContainer";
+import ImageContainer from "../news/imageContainer";
 
 interface CarouselProps {
   articles: Article[];

@@ -41,7 +41,6 @@ const Drawer = () => {
     initialValues,
     validationSchema: articleValidationSchema(isNewItem ? currentNames : currentNames.filter((name) => name !== itemDrawer.title)),
     onSubmit: (values: ArticleForm) => {
-      console.log('values', values)
       if (isNewItem) {
         dispatch(addArticle(values));
       } else {

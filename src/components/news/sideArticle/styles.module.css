@@ -1,0 +1,22 @@
+.sideArticle {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: goldenrod;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.sideArticleContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 50%;
+}
+
+.sideArticleImage {
+  width: 40%;
+  height: 100%;
+  /* background-color: lightcoral; */
+  border-radius: 8px;
+}

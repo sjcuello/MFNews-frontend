@@ -1,0 +1,10 @@
+
+.mainArticle {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: yellowgreen;
+  padding: 1rem;
+  border-radius: 8px;
+  width: 50vw;
+}

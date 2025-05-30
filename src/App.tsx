@@ -7,7 +7,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import TrashBin from './components/trashBin';
-import NewsContainer from './components/newsContainer';
+import News from './components/news';
 
 const RootLayout = () => {
   return (
@@ -25,7 +25,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <NewsContainer />,
+        element: <News />,
       },
       {
         path: '/trash-bin',
