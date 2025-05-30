@@ -61,4 +61,11 @@
   max-width: 30%;
   flex-shrink: 0;
   background-color: #e3e3e3;
+  transition: filter 0.3s ease;
+  border-radius: 0 4px 4px ;
+  cursor: pointer;
+}
+
+.carouselItem:hover {
+  filter: brightness(1.1);
 }

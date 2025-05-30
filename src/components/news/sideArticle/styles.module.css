@@ -2,9 +2,16 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: goldenrod;
-  border-radius: 8px;
-  width: 100%;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  max-width: 100%;
+  height: 125px;
+  cursor: pointer;
+  transition: filter 0.3s ease;
+}
+
+.sideArticle:hover {
+  filter: brightness(1.1);
 }
 
 .sideArticleContent {
@@ -15,8 +22,14 @@
 }
 
 .sideArticleImage {
-  width: 40%;
+  display: flex;
+  align-items: center;
+  width: 45%;
   height: 100%;
-  /* background-color: lightcoral; */
-  border-radius: 8px;
+  border-radius: 4px;
+}
+
+.category {
+  color: #ff2424;
+  text-transform: uppercase;
 }
