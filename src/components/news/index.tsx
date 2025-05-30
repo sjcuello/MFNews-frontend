@@ -26,12 +26,16 @@ const News = () => {
     }
   }, [status, dispatch]);
 
+  const mainArticle = data[0];
+  const sideArticles = data.slice(1, 4);
+  const carouselArticles = data.slice(3);
+
   return (
     <Box className={styles.container}>
       {
         status === 'succeeded' && data.length > 0 && data.some(item => !item.markAsDeleted) ? (<>
-          <NewsContainer articles={data} />
-          <Carousel articles={data.slice(-6)} />
+          <NewsContainer mainArticle={mainArticle} sideArticles={sideArticles}/>
+          <Carousel articles={carouselArticles} />
         </>
         ) : status === 'pending' ? (
           <Loading />

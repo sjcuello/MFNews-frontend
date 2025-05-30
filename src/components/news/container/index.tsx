@@ -4,12 +4,15 @@ import styles from './styles.module.css';
 import MainArticle from '../mainArticle';
 import SideArticle from '../sideArticle';
 
-const NewsContainer = ({ articles }: { articles: Article[] }) => {
-  const mainArticle = articles[0];
-  const sideArticles = articles.slice(1, 4);
+interface NewsContainerProps {
+  mainArticle: Article;
+  sideArticles: Article[];
+}
+
+const NewsContainer = ({ mainArticle, sideArticles }: NewsContainerProps) => {
   return (
     <Box className={styles.content}>
-      <MainArticle article={mainArticle}/>
+      <MainArticle article={mainArticle} />
       <Box className={styles.sideArticles}>
         {sideArticles.map((article) => (
           <SideArticle key={article.id} {...article} />
