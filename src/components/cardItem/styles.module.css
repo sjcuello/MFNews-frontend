@@ -1,0 +1,50 @@
+.card {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  border: 1px solid #D5DFE9;
+  padding: 1.5rem 1rem;
+  border-radius: 4px;
+  gap: 1.5rem
+}
+
+.cardChecked {
+  background-color: #F8FAFB;
+  border: none;
+
+  h4,
+  h6 {
+    text-decoration: line-through;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.dataContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.name {
+  padding: 0;
+}
+
+.description {
+  color: #718096;
+  padding: 0;
+}
+
+.amount {
+  color: #929292;
+  padding: 0;
+}

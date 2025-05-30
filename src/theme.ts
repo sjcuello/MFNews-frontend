@@ -1,12 +1,12 @@
 import { createTheme } from '@mui/material/styles';
 
 const dosisFont = {
-  fontFamily: "'Dosis', sans-serif",
+  fontFamily: "'Roboto', sans-serif",
 };
 
 const theme = createTheme({
   typography: {
-    fontFamily: "'Nunito', sans-serif",
+    fontFamily: "'Roboto', sans-serif",
     h1: { ...dosisFont, fontSize: '3rem' },
     h2: { ...dosisFont, fontSize: '2rem' },
     h3: { ...dosisFont, fontSize: '1.5rem' },
@@ -20,14 +20,14 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          fontFamily: "'Dosis', sans-serif",
+          fontFamily: "'Roboto', sans-serif",
         },
       },
     },
     MuiInputBase: {
       styleOverrides: {
         input: {
-          fontFamily: "'Dosis', sans-serif",
+          fontFamily: "'Roboto', sans-serif",
         },
       },
     },
