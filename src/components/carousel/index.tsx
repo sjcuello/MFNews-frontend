@@ -4,6 +4,7 @@ import { Box, IconButton, Typography } from "@mui/material";
 import styles from "./styles.module.css";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import ImageContainer from "../news/imageContainer";
+import { useNavigate } from "react-router-dom";
 
 interface CarouselProps {
   articles: Article[];
@@ -12,6 +13,7 @@ interface CarouselProps {
 const Carousel = ({
   articles
 }: CarouselProps) => {
+  const navigate = useNavigate();
   const [currentIndex, setCurrentIndex] = useState(0);
   const filteredArticles = articles.filter(article => !article.markAsDeleted);
 
@@ -25,6 +27,10 @@ const Carousel = ({
     setCurrentIndex((prevIndex) =>
       prevIndex === 0 ? filteredArticles.length - 1 : prevIndex - 1
     );
+  };
+  
+  const handleClick = (id: number) => {
+    navigate(`/${id}`);
   };
 
   if (filteredArticles.length === 0) return null;
@@ -49,7 +55,7 @@ const Carousel = ({
 
         <Box className={styles.carouselContent}>
           {visibleArticles.map((article, index) => (
-            <Box key={index} className={styles.carouselItem}>
+            <Box key={index} className={styles.carouselItem} onClick={() => handleClick(article.id)}>
               <ImageContainer imageUrl={article.imageUrl} title={article.title} />
               <Box padding={2}>
                 <Typography variant="h5" className={styles.carouselCategory} fontWeight={800}>

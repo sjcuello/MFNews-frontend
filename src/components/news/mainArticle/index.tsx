@@ -2,6 +2,7 @@ import { Box, Typography } from "@mui/material";
 import { Article } from "../../../interfaces";
 import ImageContainer from "../imageContainer";
 import styles from "./styles.module.css";
+import { useNavigate } from "react-router-dom";
 
 interface MainArticleProps {
   article: Article;
@@ -9,7 +10,9 @@ interface MainArticleProps {
 }
 
 const MainArticle = ({ article, hasSubtitle }: MainArticleProps) => {
+  const navigate = useNavigate();
   const {
+    id,
     title,
     subtitle,
     content,
@@ -18,8 +21,13 @@ const MainArticle = ({ article, hasSubtitle }: MainArticleProps) => {
     imageUrl,
     category
   } = article;
+
+  const handleClick = () => {
+    navigate(`/${id}`);
+  };
+
   return (
-    <Box className={styles.mainArticle}>
+    <Box className={styles.mainArticle} onClick={() => handleClick()}>
       <Typography
         variant='h5'
         fontWeight={800}
