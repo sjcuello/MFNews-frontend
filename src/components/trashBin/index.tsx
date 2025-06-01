@@ -8,10 +8,10 @@ import { fetchAllArticles } from '../../redux/articles/thunk';
 import Loading from '../loading';
 import ListEmpty from '../listEmpty';
 import { useNavigate } from 'react-router-dom';
+import { AppDispatch } from '../../redux';
 
 const TrashBin = () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch<AppDispatch>();
   const { data, status } = useSelector(selectArticleList);
   const navigate = useNavigate();
 

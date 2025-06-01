@@ -1,42 +1,53 @@
 import { useParams } from "react-router-dom";
-import NewsContainer from "../news/container";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllArticles, fetchArticleById } from "../../redux/articles/thunk";
-import { useEffect, useState } from "react";
-import { selectArticleList } from "../../redux/articles";
+import { useEffect, useMemo, useState } from "react";
+import { AppDispatch } from "../../redux/store";
+
+import NewsContainer from "../news/container";
 import Loading from "../loading";
+import { fetchAllArticles, fetchArticleById } from "../../redux/articles/thunk";
+import { selectArticleList } from "../../redux/articles";
 import { Article as ArticleType } from "../../interfaces";
 
 const Article = () => {
   const { id } = useParams();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const dispatch = useDispatch<any>();
+  const articleId = Number(id);
+  const dispatch = useDispatch<AppDispatch>();
+
   const { data, status } = useSelector(selectArticleList);
-  const [article, setArticle] = useState<ArticleType>();
-  const sideArticles = data.filter((item) => item.id !== Number(id) && !item.markAsDeleted).slice(0, 3);
+  const [article, setArticle] = useState<ArticleType | undefined>();
+
+  const sideArticles = useMemo(
+    () => data.filter(item => item.id !== articleId && !item.markAsDeleted).slice(0, 3),
+    [data, articleId]
+  );
 
   useEffect(() => {
     if (status === 'idle') {
       dispatch(fetchAllArticles());
     }
 
-    const tempArticle = data.find((item) => item.id === Number(id));
-    setArticle(tempArticle);
-    if (!article && !tempArticle) {
-      dispatch(fetchArticleById(Number(id)));
+    const foundArticle = data.find(item => item.id === articleId);
+    setArticle(foundArticle);
+
+    if (!foundArticle) {
+      dispatch(fetchArticleById(articleId));
     }
+  }, [status, dispatch, data, articleId]);
 
-  }, [status, article, dispatch, id]);
+  if (status === 'pending') return <Loading />;
 
+  if (status === 'succeeded' && article) {
+    return (
+      <NewsContainer
+        mainArticle={article}
+        sideArticles={sideArticles}
+        isFullArticle
+      />
+    );
+  }
 
-  return (
-    <>
-      {status === 'pending' ? (
-        <Loading />) :
-        status === 'succeeded' && article ?
-          <NewsContainer mainArticle={article!} sideArticles={sideArticles} isFullArticle /> : <></>}
-    </>
-  );
+  return null;
 };
 
 export default Article;

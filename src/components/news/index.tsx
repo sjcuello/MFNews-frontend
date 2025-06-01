@@ -10,10 +10,10 @@ import Carousel from '../carousel';
 import NewsContainer from './container';
 import { selectArticleList } from '../../redux/articles';
 import { switchDrawer } from '../../redux/drawer';
+import { AppDispatch } from '../../redux';
 
 const News = () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch<AppDispatch>();
   const { data, status } = useSelector(selectArticleList);
 
   const handleDrawerToggle = () => {
