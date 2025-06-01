@@ -1,57 +1,89 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme, Theme } from '@mui/material/styles';
 
-const dosisFont = {
-  fontFamily: "'Roboto', sans-serif",
+const fontFamily = "'Roboto', sans-serif";
+
+type Styles = {
+  fontFamily: string;
+  [key: string]: string | { fontSize: string };
 };
 
-const theme = createTheme({
+const responsiveFont = (
+  theme: Theme,
+  sizes: Partial<Record<'xs' | 'sm' | 'md' | 'lg' | 'xl', string>>
+) => {
+  const styles: Styles = { fontFamily };
+
+  Object.entries(sizes).forEach(([breakpoint, fontSize]) => {
+    styles[theme.breakpoints.down(breakpoint as keyof typeof sizes)] = {
+      fontSize,
+    };
+  });
+
+  const defaultSize = sizes.xl || sizes.lg || sizes.md || sizes.sm || sizes.xs;
+  if (defaultSize) {
+    styles.fontSize = defaultSize;
+  }
+  return styles;
+};
+
+const baseTheme = createTheme({
   palette: {
-    primary: {
-      main: '#ff2424',
-      contrastText: '#ffffff',
-    },
-    secondary: {
-      main: '#dc004e',
-      contrastText: '#ffffff',
-    },
-    background: {
-      default: '#f5f5f5',
-      paper: '#ffffff',
-    },
-    text: {
-      primary: '#212121',
-      secondary: '#757575',
-    },
+    primary: { main: '#ff2424', contrastText: '#ffffff' },
+    secondary: { main: '#dc004e', contrastText: '#ffffff' },
+    background: { default: '#f5f5f5', paper: '#ffffff' },
+    text: { primary: '#212121', secondary: '#757575' },
   },
-  typography: {
-    fontFamily: "'Roboto', sans-serif",
-    h1: { ...dosisFont, fontSize: '3rem' },
-    h2: { ...dosisFont, fontSize: '2rem' },
-    h3: { ...dosisFont, fontSize: '1.5rem' },
-    h4: { ...dosisFont, fontSize: '1.25rem' },
-    h5: { ...dosisFont, fontSize: '1.125rem' },
-    h6: { ...dosisFont, fontSize: '1rem' },
-    body1: { ...dosisFont, fontSize: '1rem' },
-    body2: { ...dosisFont, fontSize: '0.875rem' },
-  },
+  typography: { fontFamily },
   components: {
     MuiButton: {
       styleOverrides: {
-        root: {
-          fontFamily: "'Roboto', sans-serif",
-        },
+        root: { fontFamily },
       },
     },
     MuiInputBase: {
       styleOverrides: {
-        input: {
-          fontFamily: "'Roboto', sans-serif",
-        },
+        input: { fontFamily },
       },
     },
   },
 });
 
-
+const theme = createTheme(baseTheme, {
+  typography: {
+    fontFamily,
+    h1: responsiveFont(baseTheme, {
+      xl: '3rem',
+      sm: '2.25rem',
+    }),
+    h2: responsiveFont(baseTheme, {
+      xl: '2rem',
+      sm: '1.75rem',
+    }),
+    h3: responsiveFont(baseTheme, {
+      xl: '1.5rem',
+      sm: '1.25rem',
+    }),
+    h4: responsiveFont(baseTheme, {
+      xl: '1.25rem',
+      sm: '1.125rem',
+    }),
+    h5: responsiveFont(baseTheme, {
+      xl: '1.125rem',
+      sm: '1rem',
+    }),
+    h6: responsiveFont(baseTheme, {
+      xl: '1rem',
+      sm: '0.875rem',
+    }),
+    body1: responsiveFont(baseTheme, {
+      xl: '1rem',
+      sm: '0.95rem',
+    }),
+    body2: responsiveFont(baseTheme, {
+      xl: '0.875rem',
+      sm: '0.8rem',
+    }),
+  },
+});
 
 export default theme;
