@@ -10,6 +10,14 @@ export const getArticles = async () => {
   return response.json();
 };
 
+export const getArticleById = async (articleId: number) => {
+  const response = await fetch(`${BASE_URL}/${articleId}`);
+  if (!response.ok) {
+    throw new Error('Failed to fetch article');
+  }
+  return response.json();
+};
+
 export const createArticle = async (articleData: ArticleForm) => {
   const response = await fetch(`${BASE_URL}`, {
     method: 'POST',

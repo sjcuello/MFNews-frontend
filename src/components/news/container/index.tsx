@@ -7,12 +7,13 @@ import SideArticle from '../sideArticle';
 interface NewsContainerProps {
   mainArticle: Article;
   sideArticles: Article[];
+  isFullArticle?: boolean;
 }
 
-const NewsContainer = ({ mainArticle, sideArticles }: NewsContainerProps) => {
+const NewsContainer = ({ mainArticle, sideArticles, isFullArticle }: NewsContainerProps) => {
   return (
     <Box className={styles.content}>
-      <MainArticle article={mainArticle} />
+      <MainArticle article={mainArticle} hasSubtitle={isFullArticle} />
       <Box className={styles.sideArticles}>
         {sideArticles.map((article) => (
           <SideArticle key={article.id} {...article} />

@@ -3,13 +3,19 @@ import {
   getArticles,
   createArticle,
   deleteArticle,
-  updateArticle
+  updateArticle,
+  getArticleById
 
 } from '../../api';
 import { Article, ArticleForm } from '../../interfaces';
 
 export const fetchAllArticles = createAsyncThunk('articles/fetchAll', async () => {
   const response = await getArticles();
+  return response;
+});
+
+export const fetchArticleById = createAsyncThunk('articles/fetchById', async (articleId: number) => {
+  const response = await getArticleById(articleId);
   return response;
 });
 
@@ -30,6 +36,7 @@ export const editArticle = createAsyncThunk('articles/editItem', async (updateDa
 
 export default {
   fetchAllArticles,
+  fetchArticleById,
   addArticle,
   removeArticle,
   editArticle

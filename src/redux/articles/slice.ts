@@ -33,6 +33,20 @@ export const articleSlice = createSlice({
         state.status = 'rejected';
         state.error = action.error.message || 'Failed to fetch data';
       })
+      .addCase(thunk.fetchArticleById.pending, (state) => {
+        state.status = 'pending';
+      })
+      .addCase(thunk.fetchArticleById.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        const existingArticle = state.data.find((item) => item.id === action.payload.id);
+        if (!existingArticle) {
+          state.data.push(action.payload);
+        }
+      })
+      .addCase(thunk.fetchArticleById.rejected, (state, action) => {
+        state.status = 'rejected';
+        state.error = action.error.message || 'Failed to fetch article';
+      })
       .addCase(thunk.addArticle.pending, (state) => {
         state.status = 'pending';
       })
