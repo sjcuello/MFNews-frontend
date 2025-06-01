@@ -9,6 +9,7 @@ export interface Article {
   author: string;
   category: string;
   content: string;
+  contentDesc: string;
   isChecked: boolean;
   markAsDeleted: boolean;
 }
@@ -21,6 +22,7 @@ export interface ArticleForm {
   author: string;
   category: string
   content: string
+  contentDesc: string
 }
 
 export interface ItemsState {

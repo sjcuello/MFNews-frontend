@@ -23,8 +23,12 @@ export const articleValidationSchema = (excludedNames: string[]) =>
     category: yup
       .string()
       .required('Category is required'),
-    content: yup
+    contentDesc: yup
       .string()
       .required('Content is required')
       .max(30, 'Content is too long. Max 30 characters'),
+    content: yup
+      .string()
+      .required('Content is required')
+      .max(600, 'Content is too long. Max 600 characters'),
   });

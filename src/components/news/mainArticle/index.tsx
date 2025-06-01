@@ -15,7 +15,7 @@ const MainArticle = ({ article, hasSubtitle }: MainArticleProps) => {
     id,
     title,
     subtitle,
-    content,
+    contentDesc,
     author,
     description,
     imageUrl,
@@ -44,7 +44,7 @@ const MainArticle = ({ article, hasSubtitle }: MainArticleProps) => {
 
       <ImageContainer imageUrl={imageUrl} title={title} />
       <Box className={styles.articleDetails}>
-        <Typography>{content}</Typography>
+        <Typography>{contentDesc}</Typography>
         <Typography><strong>Author: </strong>{author}</Typography>
       </Box>
       <Typography variant='body1'>{description}</Typography>

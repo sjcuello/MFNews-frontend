@@ -8,6 +8,7 @@ import Loading from "../loading";
 import { fetchAllArticles, fetchArticleById } from "../../redux/articles/thunk";
 import { selectArticleList } from "../../redux/articles";
 import { Article as ArticleType } from "../../interfaces";
+import { Stack, Typography } from "@mui/material";
 
 const Article = () => {
   const { id } = useParams();
@@ -39,11 +40,17 @@ const Article = () => {
 
   if (status === 'succeeded' && article) {
     return (
-      <NewsContainer
-        mainArticle={article}
-        sideArticles={sideArticles}
-        isFullArticle
-      />
+      <Stack>
+        <NewsContainer
+          mainArticle={article}
+          sideArticles={sideArticles}
+          isFullArticle
+        />
+        <Typography variant="body2" padding={2} width={{ xs: '100%', md: '70vw' }}>
+          {article.content}
+        </Typography>
+
+      </Stack>
     );
   }
 

@@ -10,6 +10,7 @@ const initialState: Article = {
   author: '',
   category: '',
   content: '',
+  contentDesc: '',
   markAsDeleted: false,
   isChecked: false
 }
@@ -27,6 +28,7 @@ export const articleSelectedSlice = createSlice({
       state.author = action.payload.author;
       state.category = action.payload.category;
       state.content = action.payload.content;
+      state.contentDesc = action.payload.contentDesc;
       state.markAsDeleted = action.payload.markAsDeleted;
       state.isChecked = action.payload.isChecked;
     },

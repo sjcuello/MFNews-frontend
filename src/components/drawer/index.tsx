@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Drawer as DrawerMUI, IconButton, TextField, Typography } from "@mui/material"
+import { Box, Button, Divider, Drawer as DrawerMUI, IconButton, Stack, TextField, Typography } from "@mui/material"
 import Textarea from '@mui/joy/Textarea';
 import StartIcon from '@mui/icons-material/Start';
 import { useFormik } from 'formik';
@@ -36,6 +36,7 @@ const Drawer = () => {
     imageUrl: '',
     author: '',
     content: '',
+    contentDesc: '',
     category: ''
   } : itemDrawer;
 
@@ -81,7 +82,7 @@ const Drawer = () => {
       <Box className={styles.drawer}>
         <Box className={`${styles.topContainer} ${styles.basicXPadding}`}>
           <Typography variant="h6" className={styles.drawerTitle}>
-            MFNews
+            {isNewItem ? 'Add a new article' : 'Edit existing article'}
           </Typography>
           <IconButton
             color="inherit"
@@ -97,9 +98,6 @@ const Drawer = () => {
         <Divider />
         <Box className={`${styles.content} ${styles.basicXPadding}`}>
           <Box className={styles.infoContainer}>
-            <Typography variant="body1" fontWeight="500" className={styles.drawerTitle}>
-              {isNewItem ? 'Add a new article' : 'Edit existing article'}
-            </Typography>
             <form onSubmit={formik.handleSubmit} onReset={formik.handleReset} className={styles.form}>
               <Box className={styles.formInputs}>
                 <TextField
@@ -113,17 +111,30 @@ const Drawer = () => {
                   error={formik.touched.imageUrl && Boolean(formik.errors.imageUrl)}
                   helperText={formik.touched.imageUrl && formik.errors.imageUrl}
                 />
-                <TextField
-                  fullWidth
-                  id="author"
-                  name="author"
-                  label="Author"
-                  value={formik.values.author}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={formik.touched.author && Boolean(formik.errors.author)}
-                  helperText={formik.touched.author && formik.errors.author}
-                />
+                <Stack direction={"row"} gap={1}>
+                  <TextField
+                    fullWidth
+                    id="author"
+                    name="author"
+                    label="Author"
+                    value={formik.values.author}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.author && Boolean(formik.errors.author)}
+                    helperText={formik.touched.author && formik.errors.author}
+                  />
+                  <TextField
+                    fullWidth
+                    id="category"
+                    name="category"
+                    label="Category"
+                    value={formik.values.category}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.category && Boolean(formik.errors.category)}
+                    helperText={formik.touched.category && formik.errors.category}
+                  />
+                </Stack>
                 <TextField
                   fullWidth
                   id="title"
@@ -133,7 +144,7 @@ const Drawer = () => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   error={formik.touched.title && Boolean(formik.errors.title)}
-                  helperText={formik.touched.title  && formik.errors.title}
+                  helperText={formik.touched.title && formik.errors.title}
                 />
                 <TextField
                   fullWidth
@@ -146,43 +157,49 @@ const Drawer = () => {
                   error={formik.touched.subtitle && Boolean(formik.errors.subtitle)}
                   helperText={formik.touched.subtitle && formik.errors.subtitle}
                 />
-                <TextField
-                  fullWidth
-                  id="category"
-                  name="category"
-                  label="Category"
-                  value={formik.values.category}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={formik.touched.category && Boolean(formik.errors.category)}
-                  helperText={formik.touched.category && formik.errors.category}
-                />
                 <CssVarsProvider>
+                  <Textarea
+                    id="contentDesc"
+                    name="contentDesc"
+                    minRows={1}
+                    size="lg"
+                    variant="outlined"
+                    value={formik.values.contentDesc}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.contentDesc && Boolean(formik.errors.contentDesc)}
+                    placeholder="Short content description"
+                    endDecorator={
+                      <Box className={styles.charCounter}>
+                        <p>
+                          {formik.values.contentDesc.length} / 30
+                        </p>
+                      </Box>
+                    }
+                  />
                   <Textarea
                     id="content"
                     name="content"
-                    minRows={1}
+                    minRows={2}
                     size="lg"
                     variant="outlined"
                     value={formik.values.content}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     error={formik.touched.content && Boolean(formik.errors.content)}
-                    placeholder="Short content description"
+                    placeholder="Article content"
                     endDecorator={
                       <Box className={styles.charCounter}>
                         <p>
-                          {formik.values.content.length} / 30
+                          {formik.values.content.length} / 600
                         </p>
                       </Box>
                     }
                   />
-                </CssVarsProvider>
-                <CssVarsProvider>
                   <Textarea
                     id="description"
                     name="description"
-                    minRows={3}
+                    minRows={1}
                     size="lg"
                     variant="outlined"
                     value={formik.values.description}
