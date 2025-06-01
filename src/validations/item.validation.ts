@@ -6,29 +6,25 @@ export const articleValidationSchema = (excludedNames: string[]) =>
       .string()
       .required('Title is required')
       .notOneOf(excludedNames, ({ value }) => `${value} is not allowed`),
-    subTitle: yup
+    subtitle: yup
       .string()
-      .required('SubTitle is required')
-      .notOneOf(excludedNames, ({ value }) => `${value} is not allowed`),
+      .required('SubTitle is required'),
     description: yup
       .string()
+      .required('Title is required')
       .max(100, 'Description is too long. Max 100 characters'),
     imageUrl: yup
       .string()
       .url('Image URL must be a valid URL')
-      .required('Image URL is required')
-      .notOneOf(excludedNames, ({ value }) => `${value} is not allowed`),
+      .required('Image URL is required'),
     author: yup
       .string()
-      .required('Author is required')
-      .notOneOf(excludedNames, ({ value }) => `${value} is not allowed`),
+      .required('Author is required'),
     category: yup
       .string()
-      .required('Category is required')
-      .notOneOf(excludedNames, ({ value }) => `${value} is not allowed`),
+      .required('Category is required'),
     content: yup
       .string()
       .required('Content is required')
-      .notOneOf(excludedNames, ({ value }) => `${value} is not allowed`)
       .max(30, 'Content is too long. Max 30 characters'),
   });

@@ -27,7 +27,7 @@ const Drawer = () => {
   const itemDrawer = useSelector(selectItemDrawer);
   const isNewItem = useSelector(isItemDrawerEmpty);
   const itemSelected = useSelector(selectArticleSelected);
-  const currentNames = useSelector(selectAllTitles);
+  const currentTitles = useSelector(selectAllTitles);
 
   const initialValues = isNewItem ? {
     title: '',
@@ -41,7 +41,7 @@ const Drawer = () => {
 
   const formik = useFormik({
     initialValues,
-    validationSchema: articleValidationSchema(isNewItem ? currentNames : currentNames.filter((name) => name !== itemDrawer.title)),
+    validationSchema: articleValidationSchema(isNewItem ? currentTitles : currentTitles.filter((title) => title !== itemDrawer.title)),
     onSubmit: (values: ArticleForm) => {
       if (isNewItem) {
         dispatch(addArticle(values));
@@ -205,7 +205,7 @@ const Drawer = () => {
                   Cancel
                 </Button>
                 <Button color="primary" variant="contained" type="submit">
-                  Add new article
+                  Add new articless
                 </Button>
               </Box>
             </form>

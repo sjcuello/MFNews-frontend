@@ -56,7 +56,7 @@ export const articleSlice = createSlice({
       })
       .addCase(thunk.addArticle.rejected, (state, action) => {
         state.status = 'rejected';
-        state.data = state.data.filter((item) => item.id !== (action.payload as { id: number }).id);
+        state.error = action.error.message || 'Failed to add article';
       })
       .addCase(thunk.editArticle.pending, (state) => {
         state.status = 'pending';
