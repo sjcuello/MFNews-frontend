@@ -14,7 +14,6 @@ import { editArticle } from '../../redux/articles/thunk';
 
 const Navbar: React.FC = () => {
   const { id } = useParams();
-  console.log({ id })
   const dispatch = useAppDispatch();
   const handleDrawerToggle = () => {
     if (id) {

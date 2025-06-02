@@ -11,7 +11,7 @@ import { useAppDispatch } from '../../redux';
 import { editArticle, removeArticle } from '../../redux/articles/thunk';
 import { useCallback, useState } from 'react';
 import Modal from '../modal';
-import { deleteItemList } from '../../redux/articles';
+import { checkItemList, deleteItemList } from '../../redux/articles';
 
 interface CardProps {
   data: Article
@@ -20,13 +20,12 @@ interface CardProps {
 const CardItem = ({ data }: CardProps) => {
 
   const [open, setOpen] = useState(false);
-  const {  title, description, isChecked } = data;
+  const { title, description, isChecked } = data;
   const dispatch = useAppDispatch();
 
   const handleCheck = useCallback(() => {
-    const updatedItem = { ...data, isChecked: !isChecked };
-    dispatch(editArticle(updatedItem));
-  }, [data, isChecked, dispatch]);
+    dispatch(checkItemList({ ...data, isChecked: !isChecked }));
+  }, [data, dispatch, isChecked]);
 
   const handleSwitchMarkDelete = () => {
     const updatedItem = { ...data, markAsDeleted: !data.markAsDeleted };
@@ -40,9 +39,9 @@ const CardItem = ({ data }: CardProps) => {
   }
 
   const actionButtons = [
-      { icon: <UndoIcon />, onClick: handleSwitchMarkDelete, label: 'Restore', tooltip: 'Restore' },
-      { icon: <DeleteForeverIcon />, onClick: () => setOpen(true), label: 'Delete Forever', tooltip: 'Delete Forever' }
-    ]
+    { icon: <UndoIcon />, onClick: handleSwitchMarkDelete, label: 'Restore', tooltip: 'Restore' },
+    { icon: <DeleteForeverIcon />, onClick: () => setOpen(true), label: 'Delete Forever', tooltip: 'Delete Forever' }
+  ]
   return (
     <Box className={`${styles.card} ${isChecked && styles.cardChecked}`}>
       <IconButton

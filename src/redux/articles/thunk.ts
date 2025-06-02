@@ -4,7 +4,8 @@ import {
   createArticle,
   deleteArticle,
   updateArticle,
-  getArticleById
+  getArticleById,
+  deleteArticles
 
 } from '../../api';
 import { Article, ArticleForm } from '../../interfaces';
@@ -29,6 +30,11 @@ export const removeArticle = createAsyncThunk('articles/removeItem', async (arti
   return response;
 });
 
+export const removeArticles = createAsyncThunk('articles/removeItems', async (articleIds: number[]) => {
+  const response = await deleteArticles(articleIds);
+  return response;
+});
+
 export const editArticle = createAsyncThunk('articles/editItem', async (updateData: Article) => {
   const response = await updateArticle(updateData);
   return response;
@@ -39,5 +45,6 @@ export default {
   fetchArticleById,
   addArticle,
   removeArticle,
+  removeArticles,
   editArticle
 };

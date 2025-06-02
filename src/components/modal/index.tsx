@@ -14,24 +14,25 @@ interface ModalProps {
   open: boolean;
   handleClose: () => void;
   handleConfirm: () => void;
+  bulk?: boolean;
 }
 
-const Modal = ({ open, handleClose, handleConfirm }: ModalProps) => {
+const Modal = ({ open, handleClose, handleConfirm, bulk }: ModalProps) => {
+  const title = bulk ? 'Delete Selected Items?' : 'Delete Item?';
+  const message = bulk
+    ? 'Are you sure you want to delete all selected items? This action cannot be undone.'
+    : 'Are you sure you want to delete this item? This cannot be undone.';
+
   return (
-    <Dialog
-      open={open}
-      onClose={handleClose}
-    >
+    <Dialog open={open} onClose={handleClose}>
       <Box className={styles.modal}>
         <DialogTitle>
-          <Typography variant='h4' fontWeight={500}>
-            Delete Item?
+          <Typography fontWeight={500}>
+            {title}
           </Typography>
         </DialogTitle>
-        <DialogContent >
-          <DialogContentText>
-            Are you sure you want to delete this item? This cannot be undone.
-          </DialogContentText>
+        <DialogContent>
+          <DialogContentText>{message}</DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">

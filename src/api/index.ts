@@ -42,6 +42,20 @@ export const deleteArticle = async (articleId: number) => {
   return response.json();
 };
 
+export const deleteArticles = async (articleIds: number[]) => {
+  const response = await fetch(`${BASE_URL}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ articleIds }),
+  });
+  if (!response.ok) {
+    throw new Error('Failed to delete articles');
+  }
+  return response.json();
+};
+
 export const updateArticle = async (updateData: Article) => {
   const response = await fetch(`${BASE_URL}/${updateData.id}`, {
     method: 'PATCH',

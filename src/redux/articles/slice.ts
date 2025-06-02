@@ -16,8 +16,20 @@ export const articleSlice = createSlice({
     setItemList: (state, action) => {
       state.data = action.payload;
     },
+    checkItemList: (state, action) => {
+      const updatedItem = state.data.map((item) => {
+        if (item.id === action.payload.id) {
+          return { ...item, isChecked: !item.isChecked };
+        }
+        return item;
+      });
+      state.data = updatedItem;
+    },
     deleteItemList: (state, action) => {
       state.data = state.data.filter((item) => item.id !== action.payload);
+    },
+    deleteItemsList: (state, action) => {
+      state.data = state.data.filter((item) => !action.payload.includes(item.id));
     }
   },
   extraReducers: (builder) => {
@@ -85,12 +97,25 @@ export const articleSlice = createSlice({
         state.status = 'rejected';
         state.error = action.error.message || 'Failed to remove item';
       })
+      .addCase(thunk.removeArticles.pending, (state) => {
+        state.status = 'pending';
+      })
+      .addCase(thunk.removeArticles.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.data = state.data.filter(item => !action.payload.includes(item.id));
+      })
+      .addCase(thunk.removeArticles.rejected, (state, action) => {
+        state.status = 'rejected';
+        state.error = action.error.message || 'Failed to remove items';
+      })
   },
 });
 
 export const {
   setItemList,
-  deleteItemList
+  checkItemList,
+  deleteItemList,
+  deleteItemsList
 } = articleSlice.actions;
 
 export const selectArticleList = (state: RootState) => state.articles;

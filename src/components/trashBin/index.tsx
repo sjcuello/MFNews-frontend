@@ -1,16 +1,18 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import CardItem from '../cardItem';
 import styles from './styles.module.css';
-import { selectArticleList } from '../../redux/articles';
+import { deleteItemsList, selectArticleList } from '../../redux/articles';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { fetchAllArticles } from '../../redux/articles/thunk';
+import { useEffect, useState } from 'react';
+import { fetchAllArticles, removeArticles } from '../../redux/articles/thunk';
 import Loading from '../loading';
 import ListEmpty from '../listEmpty';
 import { useNavigate } from 'react-router-dom';
 import { AppDispatch } from '../../redux';
+import Modal from '../modal';
 
 const TrashBin = () => {
+  const [open, setOpen] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const { data, status } = useSelector(selectArticleList);
   const navigate = useNavigate();
@@ -21,12 +23,26 @@ const TrashBin = () => {
     }
   }, [status, dispatch]);
 
+  const handleDeleteItems = () => {
+    const articleIds = data.filter(item => item.isChecked).map(item => item.id);
+    if (articleIds.length > 0) {
+      dispatch(removeArticles(articleIds));
+      dispatch(deleteItemsList(articleIds));
+      setOpen(false)
+    }
+  };
+
   return (
     <Box className={styles.container}>
       {
         data.length > 0 && data.some(item => item.markAsDeleted) ? (<>
           <Box className={styles.titleContainer}>
             <Typography variant='h2'>Trash Bin</Typography>
+            {data.some(item => item.isChecked) && <Button
+              variant="contained"
+              color='primary'
+              onClick={() => setOpen(true)}
+            >Delete items</Button>}
           </Box>
           <Box className={styles.cardContainer}>
             {data.map((item, index) => {
@@ -44,6 +60,7 @@ const TrashBin = () => {
           handleClick={() => navigate('/')}
         />
       }
+      <Modal open={open} handleClose={() => setOpen(false)} handleConfirm={handleDeleteItems} bulk/>
     </Box>
   )
 }
