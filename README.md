@@ -34,6 +34,24 @@ __Note:__ This project is related to this [backend](https://github.com/sjcuello/
 - `/` - Home page
 - `/trash-bin` - Trash bin
 - `/something-else` - Error page
+- `/:id` - Article details page
+
+## Considerations
+This app is built with a modern React setup, using:
+- Redux to manage the app’s state in a predictable way.
+- Redux Thunk for handling async actions like API calls.
+- Material-UI for clean, responsive UI components and styling.
+- Yup to validate forms easily and reliably.
+- React Router to handle navigation between pages.
+- CSS Modules for scoped, maintainable styles.
+- TypeScript for better code quality and type safety.
+- Vite as the fast and modern build tool for development.
+##### Pages
+- Home page: Displays all articles available in the feed. You can click on an article to view its details, edit it, or delete it.
+- Article details page: Displays the details of a specific article.
+- Add/Edit Article: using a Drawer component to add or edit an article.
+- Trash bin: Displays a deleted articles list that can be restored or permanently deleted.
+- Error page: Displays a message when the user navigates to an invalid route.
 
 ## Technologies Used
 - React
