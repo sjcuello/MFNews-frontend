@@ -7,7 +7,7 @@ import styles from './styles.module.css';
 import { CssVarsProvider } from '@mui/joy/styles';
 import { useAppDispatch } from '../../redux';
 import { ArticleForm } from "../../interfaces";
-import { addArticle, editArticle } from '../../redux/articles/thunk';
+import { addArticle, editArticle, fetchAllArticles } from '../../redux/articles/thunk';
 import { selectDrawer, switchDrawer } from "../../redux/drawer";
 import { useSelector } from "react-redux";
 import { isItemDrawerEmpty, selectItemDrawer, setClear } from "../../redux/itemDrawer";
@@ -50,8 +50,8 @@ const Drawer = () => {
         const updatedItem = { ...itemSelected, ...values };
         dispatch(editArticle(updatedItem));
       }
+      dispatch(fetchAllArticles());
       formik.resetForm();
-      handleDrawerToggle()
     },
     onReset: handleDrawerToggle,
   });
@@ -67,7 +67,7 @@ const Drawer = () => {
 
 
   const container = window !== undefined ? () => window.document.body : undefined;
-
+  // console.log({formik:formik, articleValidationSchema:articleValidationSchema(isNewItem ? currentTitles : currentTitles.filter((title) => title !== itemDrawer.title))})
   return (
     <DrawerMUI
       container={container}
@@ -221,8 +221,8 @@ const Drawer = () => {
                 <Button color="inherit" variant="text" type="reset">
                   Cancel
                 </Button>
-                <Button color="primary" variant="contained" type="submit">
-                  Add new articless
+                <Button color="primary" variant="contained" type="submit" disabled={!formik.isValid || !formik.dirty}>
+                  {isNewItem ? 'Add Article' : 'Edit Article'}
                 </Button>
               </Box>
             </form>

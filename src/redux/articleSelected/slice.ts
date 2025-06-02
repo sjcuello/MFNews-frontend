@@ -41,9 +41,9 @@ export const {
   setClear
 } = articleSelectedSlice.actions;
 
-export const selectArticleSelected = (state: { itemSelected: Article; }) => state.itemSelected;
-export const isArticleSelectedEmpty = (state: { itemSelected: Article; }) => {
-  return state.itemSelected.id === 0;
+export const selectArticleSelected = (state: { articleSelected: Article; }) => state.articleSelected;
+export const isArticleSelectedEmpty = (state: { articleSelected: Article; }) => {
+  return state.articleSelected.id === 0;
 }
 
 export default articleSelectedSlice.reducer;
