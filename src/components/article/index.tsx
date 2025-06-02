@@ -1,23 +1,22 @@
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useMemo, useState } from "react";
-import { AppDispatch } from "../../redux/store";
-
+import { useEffect, useMemo } from "react";
+import { AppDispatch, RootState } from "../../redux/store";
 import NewsContainer from "../news/container";
 import Loading from "../loading";
-import { fetchAllArticles, fetchArticleById } from "../../redux/articles/thunk";
-import { selectArticleList } from "../../redux/articles";
-import { Article as ArticleType } from "../../interfaces";
+import { fetchAllArticles } from "../../redux/articles/thunk";
+import { selectArticleById, selectArticleList } from "../../redux/articles";
 import { Stack, Typography } from "@mui/material";
 
 const Article = () => {
   const { id } = useParams();
   const articleId = Number(id);
   const dispatch = useDispatch<AppDispatch>();
-
   const { data, status } = useSelector(selectArticleList);
-  const [article, setArticle] = useState<ArticleType | undefined>();
-
+  const article = useSelector((state: RootState) =>
+      selectArticleById(state, Number(id))
+    )!;
+  
   const sideArticles = useMemo(
     () => data.filter(item => item.id !== articleId && !item.markAsDeleted).slice(0, 3),
     [data, articleId]
@@ -27,14 +26,7 @@ const Article = () => {
     if (status === 'idle') {
       dispatch(fetchAllArticles());
     }
-
-    const foundArticle = data.find(item => item.id === articleId);
-    setArticle(foundArticle);
-
-    if (!foundArticle) {
-      dispatch(fetchArticleById(articleId));
-    }
-  }, [status, dispatch, data, articleId]);
+  }, [status, dispatch, data]);
 
   if (status === 'pending') return <Loading />;
 
