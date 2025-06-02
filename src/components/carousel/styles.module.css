@@ -2,7 +2,6 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
 }
 
 .carousel {
@@ -32,9 +31,15 @@
 
 .carouselIndicators {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
   margin-top: 15px;
-  gap: 8px;
+}
+
+@media (min-width: 768px) {
+  .carouselIndicators {
+    justify-content: center;
+  }
 }
 
 .indicator {

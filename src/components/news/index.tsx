@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import styles from './styles.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
@@ -33,10 +33,11 @@ const News = () => {
   return (
     <Box className={styles.container}>
       {
-        status === 'succeeded' && data.length > 0 && data.some(item => !item.markAsDeleted) ? (<>
+        status === 'succeeded' && data.length > 0 && data.some(item => !item.markAsDeleted) ? (
+        <Stack>
           <NewsContainer mainArticle={mainArticle} sideArticles={sideArticles}/>
           <Carousel articles={carouselArticles} />
-        </>
+        </Stack>
         ) : status === 'pending' ? (
           <Loading />
         ) : <ListEmpty

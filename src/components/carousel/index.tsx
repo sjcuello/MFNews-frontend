@@ -1,61 +1,68 @@
 import { useState } from "react";
 import { Article } from "../../interfaces";
-import { Box, IconButton, Typography } from "@mui/material";
+import { Box, IconButton, Stack, Typography } from "@mui/material";
 import styles from "./styles.module.css";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import ImageContainer from "../news/imageContainer";
 import { useNavigate } from "react-router-dom";
+import useIsMobile from "../../hooks/useIsMobile";
 
 interface CarouselProps {
   articles: Article[];
 }
 
-const Carousel = ({
-  articles
-}: CarouselProps) => {
+const Carousel = ({ articles }: CarouselProps) => {
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
   const [currentIndex, setCurrentIndex] = useState(0);
   const filteredArticles = articles.filter(article => !article.markAsDeleted);
+  const total = filteredArticles.length;
 
-  const handleNext = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === filteredArticles.length - 1 ? 0 : prevIndex + 1
-    );
-  };
-
-  const handlePrev = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? filteredArticles.length - 1 : prevIndex - 1
-    );
-  };
-  
-  const handleClick = (id: number) => {
-    navigate(`/${id}`);
-  };
-
-  if (filteredArticles.length === 0) return null;
+  if (total === 0) return null;
 
   const visibleCount = 3;
-  const visibleArticles = filteredArticles.slice(currentIndex, currentIndex + visibleCount);
 
-  if (visibleArticles.length < visibleCount) {
-    visibleArticles.push(...filteredArticles.slice(0, visibleCount - visibleArticles.length));
-  }
+  const visibleArticles = Array.from({ length: visibleCount }, (_, i) => 
+    filteredArticles[(currentIndex + i) % total]
+  );
+
+  const handleNext = () => setCurrentIndex((prev) => (prev + 1) % total);
+  const handlePrev = () => setCurrentIndex((prev) => (prev - 1 + total) % total);
+  const handleClick = (id: number) => navigate(`/${id}`);
+
+  const PrevButton = (
+    <IconButton
+      onClick={handlePrev}
+      className={isMobile ? styles.carouselArrowMobile : styles.carouselArrow}
+      aria-label="Previous article"
+      size={isMobile ? "large" : "medium"}
+    >
+      <ArrowBackIos fontSize={isMobile ? "large" : "medium"} />
+    </IconButton>
+  );
+
+  const NextButton = (
+    <IconButton
+      onClick={handleNext}
+      className={isMobile ? styles.carouselArrowMobile : styles.carouselArrow}
+      aria-label="Next article"
+      size={isMobile ? "large" : "medium"}
+    >
+      <ArrowForwardIos fontSize={isMobile ? "large" : "medium"} />
+    </IconButton>
+  );
 
   return (
     <Box className={styles.carouselContainer}>
       <Box className={styles.carousel}>
-        <IconButton
-          onClick={handlePrev}
-          className={styles.carouselArrow}
-          aria-label="Previous article"
-        >
-          <ArrowBackIos />
-        </IconButton>
-
+        {!isMobile && PrevButton}
         <Box className={styles.carouselContent}>
-          {visibleArticles.map((article, index) => (
-            <Box key={index} className={styles.carouselItem} onClick={() => handleClick(article.id)}>
+          {visibleArticles.map((article) => (
+            <Box
+              key={article.id}
+              className={styles.carouselItem}
+              onClick={() => handleClick(article.id)}
+            >
               <ImageContainer imageUrl={article.imageUrl} title={article.title} />
               <Box padding={2}>
                 <Typography variant="h5" className={styles.carouselCategory} fontWeight={800}>
@@ -68,26 +75,25 @@ const Carousel = ({
             </Box>
           ))}
         </Box>
-        <IconButton
-          onClick={handleNext}
-          className={styles.carouselArrow}
-          aria-label="Next article"
-        >
-          <ArrowForwardIos />
-        </IconButton>
+        {!isMobile && NextButton}
       </Box>
 
       <Box className={styles.carouselIndicators}>
-        {filteredArticles.map((_, index) => (
-          <Box
-            key={index}
-            className={`${styles.indicator} ${index === currentIndex ? styles.activeIndicator : ''}`}
-            onClick={() => setCurrentIndex(index)}
-          />
-        ))}
+        {isMobile && PrevButton}
+        <Stack direction="row" spacing={1} alignItems="center">
+          {filteredArticles.map((_, index) => (
+            <Box
+              key={index}
+              className={`${styles.indicator} ${index === currentIndex ? styles.activeIndicator : ""}`}
+              onClick={() => setCurrentIndex(index)}
+              sx={{ cursor: "pointer" }}
+            />
+          ))}
+        </Stack>
+        {isMobile && NextButton}
       </Box>
     </Box>
   );
 };
 
-export default Carousel
+export default Carousel;

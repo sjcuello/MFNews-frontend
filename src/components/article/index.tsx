@@ -46,7 +46,7 @@ const Article = () => {
           sideArticles={sideArticles}
           isFullArticle
         />
-        <Typography variant="body2" padding={2} width={{ xs: '100%', md: '70vw' }}>
+        <Typography variant="body2" padding={2} width={{ xs: '100%', md: '50vw' }}>
           {article.content}
         </Typography>
 

@@ -12,6 +12,7 @@
 .boxed-content {
   padding-left: calc(20vw - 12rem) !important;
   padding-right: calc(20vw - 12rem) !important;
+  height: 100%;
 }
 
 @media (min-width: 500px) and (max-width: 1023px) {
