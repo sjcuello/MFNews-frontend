@@ -8,6 +8,12 @@
   max-height: 100%;
 }
 
+@media (max-width: 1024px) {
+  .mainArticle {
+    width: 100%;
+  }
+}
+
 .articleDetails {
   display: flex;
   flex-direction: row;

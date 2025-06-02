@@ -4,6 +4,7 @@ import ImageContainer from "../imageContainer";
 import styles from "./styles.module.css";
 import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+import useIsMobile from "../../../hooks/useIsMobile";
 
 
 const getRandomPastelColor = () => {
@@ -13,6 +14,7 @@ const getRandomPastelColor = () => {
 
 const SideArticle = ({ title, category, imageUrl, id }: Article) => {
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
   const backgroundColor = useMemo(getRandomPastelColor, []);
 
   const handleClick = () => {
@@ -32,7 +34,7 @@ const SideArticle = ({ title, category, imageUrl, id }: Article) => {
         <Typography variant='h4'>{title}</Typography>
       </Box>
       <Box className={styles.sideArticleImage}>
-        <ImageContainer imageUrl={imageUrl} title={title} />
+        {!isMobile && <ImageContainer imageUrl={imageUrl} title={title} />}
       </Box>
     </Box>
   );

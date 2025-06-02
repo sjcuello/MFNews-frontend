@@ -15,9 +15,9 @@
   height: 100%;
 }
 
-@media (min-width: 500px) and (max-width: 1023px) {
+@media (max-width: 1023px) {
   .boxed-content {
-    padding-left: calc(50vw - 250px) !important;
-    padding-right: calc(50vw - 250px) !important;
+    padding-left: calc(40vw - 250px) !important;
+    padding-right: calc(40vw - 250px) !important;
   }
 }

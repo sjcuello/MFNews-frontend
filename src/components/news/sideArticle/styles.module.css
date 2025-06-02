@@ -33,3 +33,16 @@
   color: #ff2424;
   text-transform: uppercase;
 }
+
+@media (max-width: 1024px) {
+  .sideArticle {
+    flex-direction: column;
+    height: auto;
+    justify-content: center;
+    width: 30%;
+  }
+  .sideArticleContent {
+    width: 100%;
+    gap: 0
+  }
+}
