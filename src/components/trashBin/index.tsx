@@ -31,7 +31,7 @@ const TrashBin = () => {
           <Box className={styles.cardContainer}>
             {data.map((item, index) => {
               if (item.markAsDeleted) {
-                return <CardItem key={index} data={item} isInTrashBin />;
+                return <CardItem key={index} data={item} />;
               }
             })}
           </Box>

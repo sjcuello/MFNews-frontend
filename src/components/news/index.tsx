@@ -15,6 +15,7 @@ import { AppDispatch } from '../../redux';
 const News = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { data, status } = useSelector(selectArticleList);
+  const articles = data.filter(item => !item.markAsDeleted);
 
   const handleDrawerToggle = () => {
     dispatch(switchDrawer());
@@ -26,9 +27,9 @@ const News = () => {
     }
   }, [status, dispatch]);
 
-  const mainArticle = data[0];
-  const sideArticles = data.slice(1, 4);
-  const carouselArticles = data.slice(3);
+  const mainArticle = articles[0];
+  const sideArticles = articles.slice(1, 4);
+  const carouselArticles = articles.slice(3);
 
   return (
     <Box className={styles.container}>

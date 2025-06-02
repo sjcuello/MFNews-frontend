@@ -67,7 +67,7 @@ const Navbar: React.FC = () => {
                   variant="body1"
                   className={styles.titles}
                 >
-                  Delete article
+                  {article.markAsDeleted ? 'Restore article' :'Delete article'}
                 </Typography>
               </Button>}
             <IconButton

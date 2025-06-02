@@ -1,8 +1,6 @@
 import { Box, IconButton, Tooltip, Typography } from '@mui/material';
 import { Article } from '../../interfaces';
 import {
-  EditOutlined as EditIcon,
-  DeleteOutlined as DeleteIcon,
   CheckBoxOutlineBlank as CheckBoxBlankIcon,
   CheckBox as CheckBoxIcon,
   DeleteForeverOutlined as DeleteForeverIcon,
@@ -11,31 +9,19 @@ import {
 import styles from './styles.module.css';
 import { useAppDispatch } from '../../redux';
 import { editArticle, removeArticle } from '../../redux/articles/thunk';
-import { setItemDrawer } from '../../redux/itemDrawer';
-import { switchDrawer } from '../../redux/drawer';
 import { useCallback, useState } from 'react';
 import Modal from '../modal';
-import { setItemSelected } from '../../redux/articleSelected';
 import { deleteItemList } from '../../redux/articles';
-
 
 interface CardProps {
   data: Article
-  isInTrashBin?: boolean
 }
 
-const CardItem = ({ data, isInTrashBin }: CardProps) => {
+const CardItem = ({ data }: CardProps) => {
 
   const [open, setOpen] = useState(false);
   const {  title, description, isChecked } = data;
   const dispatch = useAppDispatch();
-
-  const handleEdit = () => {
-    const {  title, subtitle, description, imageUrl, author } = data
-    dispatch(setItemSelected(data));
-    dispatch(setItemDrawer({ title, subtitle, description, imageUrl, author }));
-    dispatch(switchDrawer());
-  }
 
   const handleCheck = useCallback(() => {
     const updatedItem = { ...data, isChecked: !isChecked };
@@ -53,16 +39,10 @@ const CardItem = ({ data, isInTrashBin }: CardProps) => {
     setOpen(false)
   }
 
-  const actionButtons = isInTrashBin
-    ? [
+  const actionButtons = [
       { icon: <UndoIcon />, onClick: handleSwitchMarkDelete, label: 'Restore', tooltip: 'Restore' },
       { icon: <DeleteForeverIcon />, onClick: () => setOpen(true), label: 'Delete Forever', tooltip: 'Delete Forever' }
     ]
-    : [
-      { icon: <EditIcon />, onClick: handleEdit, label: 'Edit', tooltip: 'Edit' },
-      { icon: <DeleteIcon />, onClick: handleSwitchMarkDelete, label: 'Mark as Deleted', tooltip: 'Mark as Deleted' }
-    ];
-
   return (
     <Box className={`${styles.card} ${isChecked && styles.cardChecked}`}>
       <IconButton
@@ -77,7 +57,6 @@ const CardItem = ({ data, isInTrashBin }: CardProps) => {
         <Box className={styles.dataContainer}>
           <Typography variant="h4" color='info' fontWeight="500" className={styles.name}>{title} </Typography>
           <Typography variant="h6" className={styles.description}>{description}</Typography>
-          {/* <Typography variant="body2" className={styles.amount}>Amount: {amount}</Typography> */}
         </Box>
         <Box>
           {
