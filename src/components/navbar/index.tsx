@@ -9,7 +9,7 @@ import { setItemSelected } from '../../redux/articleSelected';
 import { setItemDrawer } from '../../redux/itemDrawer';
 import { useSelector } from 'react-redux';
 import { selectArticleById } from '../../redux/articles';
-import { editArticle } from '../../redux/articles/thunk';
+import { editArticle, fetchAllArticles } from '../../redux/articles/thunk';
 
 
 const Navbar: React.FC = () => {
@@ -28,6 +28,7 @@ const Navbar: React.FC = () => {
   };
 
   const handleHomeClick = () => {
+    dispatch(fetchAllArticles());
     navigate('/');
   }
   

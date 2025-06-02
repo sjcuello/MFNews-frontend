@@ -23,6 +23,11 @@ const TrashBin = () => {
     }
   }, [status, dispatch]);
 
+  const handleHomeClick = () => {
+    dispatch(fetchAllArticles());
+    navigate('/');
+  }
+
   const handleDeleteItems = () => {
     const articleIds = data.filter(item => item.isChecked).map(item => item.id);
     if (articleIds.length > 0) {
@@ -57,7 +62,7 @@ const TrashBin = () => {
         ) : <ListEmpty
           text="Your trash bin is empty :)"
           textButton="Back to Home"
-          handleClick={() => navigate('/')}
+          handleClick={() => handleHomeClick()}
         />
       }
       <Modal open={open} handleClose={() => setOpen(false)} handleConfirm={handleDeleteItems} bulk/>
